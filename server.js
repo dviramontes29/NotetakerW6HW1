@@ -9,7 +9,6 @@ app.use(express.urlencoded({ extended: true }))
 
 app.use(express.json())
 
-app.use('/api', require('./routes/apiRoutes.js'))
-app.use('/', require('./routes/viewRoutes.js'))
+app.use(require('./routes'))
 
 app.listen(process.env.PORT || 3000)
