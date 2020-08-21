@@ -1,22 +1,22 @@
 
-axios.get('/api/items')
+axios.get('/api/notes')
 .then(({ data }) => {
   console.log(data)
-  data.forEach(item => {
+  data.forEach(notes => {
     let itemElem = document.createElement('li')
-    if (item.isDone) {
+    if (notes.isDone) {
       itemElem.classList.add('done')
     } else {
       itemElem.classList.add('notDone')
     }
     itemElem.innerHTML = `
-      <span>${item.text}</span>
+      <span>${notes.text}</span>
       <button 
-        data-id="${item.id}"
-        data-done="${item.isDone}"
+        data-id="${notes.id}"
+        data-done="${notes.isDone}"
         class="complete">✓</button>
       <button
-        data-id="${item.id}" 
+        data-id="${notes.id}" 
         class="delete">X</button>
     `
     document.getElementById('items').append(itemElem)

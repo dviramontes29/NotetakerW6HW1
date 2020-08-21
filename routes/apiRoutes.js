@@ -11,58 +11,37 @@ router.get('/notes', (req, res) => {
   })
 })
 
-// POST one item
+// POST one note
 router.post('/notes', (req, res) => {
 
   fs.readFile(join(__dirname, '..', 'db', 'db.json'), 'utf8', (err, data) => {
     if (err) { console.log(err) }
 
     let notes = JSON.parse(data)
-    let item = {
+    let note = {
       id: uuid.v1(),
       text: req.body.text,
       isDone: req.body.isDone
     }
-    notes.push(item)
+    notes.push(note)
 
     fs.writeFile(join(__dirname, '..', 'db', 'db.json'), JSON.stringify(notes), err => {
       if (err) { console.log(err) }
 
-      res.json(item)
+      res.json(note)
     })
   })
 })
 
-// PUT one item
-router.put('/notes/:id', (req, res) => {
 
-  fs.readFile(join(__dirname, '..', 'db', 'db.json'), 'utf8', (err, data) => {
-    if (err) { console.log(err) }
-
-    let notes = JSON.parse(data)
-
-    for (let i = 0; i < notes.length; i++) {
-      if (notes[i].id === req.params.id) {
-        notes[i].isDone = req.body.isDone
-      }
-    }
-
-    fs.writeFile(join(__dirname, '..', 'db', 'db.json'), JSON.stringify(notes), err => {
-      if (err) { console.log(err) }
-
-      res.sendStatus(200)
-    })
-  })
-})
-
-// DELETE one item
+// DELETE one note
 router.delete('/notes/:id', (req, res) => {
 
   fs.readFile(join(__dirname, '..', 'db', 'db.json'), 'utf8', (err, data) => {
     if (err) { console.log(err) }
 
     let notes = JSON.parse(data)
-    notes = notes.filter(item => item.id !== req.params.id)
+    notes = notes.filter(note => note.id !== req.params.id)
 
     fs.writeFile(join(__dirname, '..', 'db', 'db.json'), JSON.stringify(notes), err => {
       if (err) { console.log(err) }
