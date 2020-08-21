@@ -20,9 +20,10 @@ router.post('/notes', (req, res) => {
     let notes = JSON.parse(data)
     let note = {
       id: uuid.v1(),
-      text: req.body.text,
-      isDone: req.body.isDone
+      title: req.body.title,
+      text: req.body.text
     }
+
     notes.push(note)
 
     fs.writeFile(join(__dirname, '..', 'db', 'db.json'), JSON.stringify(notes), err => {
@@ -46,8 +47,8 @@ router.delete('/notes/:id', (req, res) => {
     fs.writeFile(join(__dirname, '..', 'db', 'db.json'), JSON.stringify(notes), err => {
       if (err) { console.log(err) }
 
-      res.sendStatus(200)
     })
+    res.sendStatus(200)
   })
 })
 
