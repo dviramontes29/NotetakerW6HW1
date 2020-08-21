@@ -1,3 +1,4 @@
+const { join } = require('path')
 const router = require('express').Router()
 
 router.use('/api', require('./apiRoutes.js'))
